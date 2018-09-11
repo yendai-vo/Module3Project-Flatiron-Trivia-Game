@@ -12,14 +12,19 @@
 </head>
 
 <body>
+  <div id="hello-page" class="container-fluid">
+    <h2>Welcome, to the Flatiron Trivia Game!</h2>
+    <button type="button" class="btn btn-info">Start Trivia</button>
 
+  </div>
+----------------------------------------------------------------------------------------------------------------
     <div id="trivia-page" class="container-fluid">
-        <h2 id="trivia-score">Score:</h2>
+        <h3 id="trivia-score">Score:</h3>
         <br>
         <div>
-            <p id="trivia-question-title">Question:</p>
+            <h3 id="trivia-question-title">Question: blha blah blah?</h3>
             <hr>
-            <form action="" id="trivia-answer-choices">
+            <form action=""  id="trivia-answer-choices">
                 <input type="radio" name="answers" value="male"> First Choice
                 <br>
                 <input type="radio" name="answers" value="female"> Second Choice
@@ -30,10 +35,48 @@
             </form>
         </div>
     </div> <!-- end of trivia-page -->
-
-    <div id="game-over-page">
-        
-
+------------------------------------------------------------------------------------------------------------------
+    <div>
+      <!-- Right Answer -->
+      <div class="right_alert">
+        <span class="trivia_alert" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Correct!</strong> You got it right!
+      </div>
+      <!-- Wrong Answer -->
+      <div class="wrong_alert">
+        <span class="trivia_alert" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Incorrect!</strong> You'll get it next time!
+      </div>
+    </div> <!-- Trivia Answer Alert -->
+---------------------------------------------------------------------------------------------------------------
+    <div id="game-over-page" class="container-fluid">
+      <h2>Congratulations! Quiz has Ended!</h2><br>
+      <h2>You scored: __ out of 10</h2><br>
+      <form action="" id="gave-over-enter-name">
+        <input type="text" placeholder="Your name">
+        <input type="submit" value="Submit">
+      </form>
+      <br>
+      <div id="game-over-leaderboard">
+        <table>
+          <tr>
+            <th>~~~Player~~~</th>
+            <th>~~~Score~~~</th>
+          </tr>
+          <tr>
+            <td>UserName</td>
+            <td>User Score</td>
+          <tr>
+            <tr>
+              <td>UserName</td>
+              <td>User Score</td>
+            <tr>
+            <tr>
+              <td>UserName</td>
+              <td>User Score</td>
+            <tr>
+        </table>
+      </div>
     </div> <!-- end of game-over-page -->
 
 

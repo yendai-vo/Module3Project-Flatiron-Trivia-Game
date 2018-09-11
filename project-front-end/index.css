@@ -1,0 +1,23 @@
+/* Alert Box Css */
+ /* #trivia-answer-choices{
+    margin-left: 15px;
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}  */
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.container-fluid {
+  text-align: center;
+}
+
+#trivia-answer-choices {
+  
+}
