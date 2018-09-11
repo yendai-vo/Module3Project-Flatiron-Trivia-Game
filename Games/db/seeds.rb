@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Game.destroy_all
+Question.destroy_all
+Choice.destroy_all
+GameQuestion.destroy_all
+
 
 g1 = Game.create(username:'Cindy', score: 5)
 g2 = Game.create(username:'Becci', score: 10)
