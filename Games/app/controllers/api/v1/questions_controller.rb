@@ -2,7 +2,8 @@ class Api::V1::QuestionsController < ApplicationController
   # before_action :find_question
   def index
     @questions = Question.all
-    render json: @questions
+    render json: @questions, include: ['choices']
+  
   end
 
   def show; end
