@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Flatiron Trivia Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="index.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -24,7 +24,7 @@
         <div>
             <h3 id="trivia-question-title">Question:</h3>
             <hr>
-            
+
             <button type="button" class="btn btn-danger" id="exit-button">Exit Trivia</button>
             <button type="button" class="btn btn-primary" id="next-button">Next Question</button>
         </div>
@@ -44,9 +44,9 @@
     </div> <!-- Trivia Answer Alert -->
 
     <div id="game-over-page" class="container-fluid"> <!-- start of game-over-page -->
-      <h2>Congratulations! Quiz has Ended!</h2><br>
-      <h2>You scored: __ out of 10</h2><br>
-      <form action="" id="gave-over-enter-name">
+      <h2>Congratulations! Trivia Quiz has Ended!</h2><br>
+      <h2 id='current-user-final-score'>You scored: __ out of 10</h2><br>
+      <form action="" id="game-over-enter-name">
         <input type="text" placeholder="Your name">
         <input type="submit" value="Submit">
       </form>
@@ -54,8 +54,8 @@
       <div id="game-over-leaderboard">
         <table>
           <tr>
-            <th>~~~Player~~~</th>
-            <th>~~~Score~~~</th>
+            <th>PLAYER</th>
+            <th>SCORE</th>
           </tr>
           <tr>
             <td>UserName</td>
