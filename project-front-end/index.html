@@ -24,7 +24,7 @@
         <div>
             <h3 id="trivia-question-title">Question:</h3>
             <hr>
-            
+
             <button type="button" class="btn btn-danger" id="exit-button">Exit Trivia</button>
             <button type="button" class="btn btn-primary" id="next-button">Next Question</button>
         </div>
@@ -32,14 +32,14 @@
 
     <div>
       <!-- Right Answer -->
-      <div class="right_alert">
-        <span class="trivia_alert" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Correct!</strong> You got it right!
+      <div id = "right_alert" class = "hidden">
+        <span onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Correct!</strong> You got it right! (Please click "x")
       </div>
       <!-- Wrong Answer -->
-      <div class="wrong_alert">
-        <span class="trivia_alert" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Incorrect!</strong> You'll get it next time!
+      <div id = "wrong_alert" class = "hidden">
+        <span onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Incorrect!</strong> You'll get it next time! (Please click "x")
       </div>
     </div> <!-- Trivia Answer Alert -->
 

@@ -122,9 +122,11 @@ function renderOneQuestion(q){
   `
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
+        $("div#right_alert").show()
         console.log('increase score')
         console.log('alert for correct answer')
       } else {
+        $("div#wrong_alert").show()
         console.log('incorrect answer')
         console.log('alert for incorrect')
       }
