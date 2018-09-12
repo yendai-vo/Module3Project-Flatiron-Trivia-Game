@@ -4,35 +4,16 @@ function getAllGames(){
     .then(resp=>resp.json())
     .then(getGameInfo)
 }
-function getAllAnwerChoices(){
-  return fetch('http://localhost:3000/api/v1/choices')
-  .then(resp=>resp.json())
-  .then(getChoicesInfo)
-}
-function getAllQuestions(){
-  return fetch('http://localhost:3000/api/v1/questions')
-  .then(resp=>resp.json())
-  .then(renderQuestions)
-}
-
-// function getQuestionInfo(questions){
-//   questions.forEach(function(question){
-//     console.log(question.question)
-//   })
-// }
-
-function getChoicesInfo(choices){
-  choices.forEach(function(choice){
-      console.log(choice.question_id) //this grabs question ID how to grab question
-      console.log(choice.answer_choice)
-    })
-}
-
 function getGameInfo(games){
   games.forEach(function(game){
     console.log(game.username)
     console.log(game.score)
   })
+}
+function getAllQuestions(){
+  return fetch('http://localhost:3000/api/v1/questions')
+  .then(resp=>resp.json())
+  .then(renderQuestions)
 }
 
 const helloPage = document.getElementById('hello-page')
@@ -73,6 +54,25 @@ function displayGameOverPage() {
     document.getElementById('trivia-page').style.display = "none";
     document.getElementById('game-over-page').style.display = "block";
 
+  const currentUserFinalScore = document.getElementById('current-user-final-score')
+  currentUserFinalScore.innerText = `You scored: ${userScore} out of 10 Questions`
+
+  gameOverPage.addEventListener('submit', addUserNameAndScore)
+  function addUserNameAndScore(){
+    console.log('hit submit button')
+    console.log(userScore)
+    //WORKING ON ADDING NAME & SCORE
+    // fetch(`http://localhost:3000/api/v1/games`, {
+    //   method: "Post",
+    //   headers: {
+    //     'Content-Type':'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     username: userName,
+    //     score: userScore
+    //   })
+    }
+  }
     gameOverPage.addEventListener('click', function(event) {
         //debugger
         if(event.target.id === "again-button") {
@@ -84,13 +84,6 @@ function displayGameOverPage() {
 displayHelloPage()
 // displayTriviaPage()
 // displayGameOverPage()
-
-
-// function getAllQuestions(){
-//     return fetch('http://localhost:3000/api/v1/questions')
-//     .then(resp=>resp.json())
-//     .then(getQuestionInfo)
-// }
 
 function randomQuestion(array){
   let question = array[Math.floor( Math.random()*array.length)];
@@ -104,15 +97,15 @@ function renderQuestions(questions) {
   let q = randomQuestion(questions)
   renderOneQuestion(q)
   triviaPage.addEventListener('click', function(event) {
-      //debugger
       if(event.target.id === "next-button") {
           let q = randomQuestion(questions)
           renderOneQuestion(q)
-          //add in the function that would go to the next question
       }
   })
 }
-
+let userScore = 0
+const triviaScore = document.getElementById('trivia-score')
+triviaScore.innerHTML = `Current Score: ${userScore}`
 function renderOneQuestion(q){
   currentQuestion.innerHTML = `
       <h3 id="trivia-question-title">Question: ${q.question}</h3>
@@ -122,13 +115,14 @@ function renderOneQuestion(q){
   `
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
-        $("div#right_alert").show()
-        console.log('increase score')
-        console.log('alert for correct answer')
+
+        userScore +=1
+        triviaScore.innerHTML = `Current Score: ${userScore}`    
+       $("div#right_alert").show()
+
       } else {
         $("div#wrong_alert").show()
-        console.log('incorrect answer')
-        console.log('alert for incorrect')
+   
       }
   })
 }
