@@ -1,5 +1,5 @@
 class Api::V1::GamesController < ApplicationController
-  before_action :find_game
+  # before_action :find_game
   def index
     @games = Game.all
     render json: @games
@@ -7,12 +7,14 @@ class Api::V1::GamesController < ApplicationController
 
   def show; end
 
-  def update
-    @game.update(game_params)
-    if @game.save
+  def create
+    @game = Game.new(game_params)
+    if @game.valid?
+      @game.save
       render json: @game, status: :accepted
     else
-      render json: { errors: @game.errors.full_messages }, status: :unprocessible_entity
+      render json: @game.errors
+      # { errors: @game.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
@@ -22,6 +24,6 @@ class Api::V1::GamesController < ApplicationController
   end
 
   def find_game
-    @game = Game.find(params[:id])
+    @game = Game.find(params[:id, :username, :score])
   end
 end

@@ -1,5 +1,5 @@
 class Api::V1::QuestionsController < ApplicationController
-  before_action :find_question
+  # before_action :find_question
   def index
     @questions = Question.all
     render json: @questions
