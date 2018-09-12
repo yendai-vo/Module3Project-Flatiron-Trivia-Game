@@ -33,6 +33,7 @@ function getGameInfo(games){
     console.log(game.score)
   })
 }
+
 const helloPage = document.getElementById('hello-page')
 const triviaPage = document.getElementById('trivia-page')
 const gameOverPage = document.getElementById('game-over-page')
@@ -61,6 +62,14 @@ function displayTriviaPage() {
             displayGameOverPage()
         }
     })
+
+    triviaPage.addEventListener('click', function(event) {
+        //debugger
+        if(event.target.id === "next-button") {
+            console.log('going to next question')
+            //add in the function that would go to the next question
+        }
+    })
     
 }
 
@@ -80,3 +89,38 @@ function displayGameOverPage() {
 displayHelloPage()
 // displayTriviaPage()
 // displayGameOverPage()
+
+
+function getAllQuestions(){
+    return fetch('http://localhost:3000/api/v1/questions')
+    .then(resp=>resp.json())
+    .then(getQuestionInfo)
+}
+
+const currentQuestion = document.getElementById('trivia-question-title')
+function getQuestionInfo(questions) {
+  questions.forEach(function(q){
+    currentQuestion.innerHTML = `
+        <h3 id="trivia-question-title">Question: ${q.question}</h3>
+        <form action=""  id="trivia-answer-choices">
+            ${myAnswerTemplate = createAnswers(q)}
+        </form>
+    `
+  })
+
+}
+function createAnswers(q) {
+    const answers = q.choices
+    let myAnswers = ``
+    for(let answer of answers) {
+        let theAnswer = answer.answer_choice
+        let rightOrWrong = answer.is_correct
+
+        const oneAnswer = `<input type="radio" name="answers" value=${rightOrWrong}> ${theAnswer}<br>`
+        myAnswers += oneAnswer
+    }
+    return myAnswers
+}
+  
+getAllQuestions()
+
