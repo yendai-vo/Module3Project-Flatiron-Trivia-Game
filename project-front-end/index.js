@@ -115,11 +115,14 @@ function renderOneQuestion(q){
   `
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
+
         userScore +=1
-        triviaScore.innerHTML = `Current Score: ${userScore}`
-        console.log('alert for correct - done')
+        triviaScore.innerHTML = `Current Score: ${userScore}`    
+       $("div#right_alert").show()
+
       } else {
-        console.log('alert for incorrect - done')
+        $("div#wrong_alert").show()
+   
       }
   })
 }

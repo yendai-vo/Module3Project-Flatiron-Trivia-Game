@@ -14,3 +14,21 @@ table, th, td {
 .container-fluid {
 text-align: center;
 }
+
+/* hides alert messages */
+div.hidden
+{
+   display: none;
+}
+
+#right_alert{
+  font-weight: bold;
+  background-color: green;
+  padding: 20px;
+}
+
+#wrong_alert{
+  font-weight: bold;
+  background-color: red;
+  padding: 20px;
+}
