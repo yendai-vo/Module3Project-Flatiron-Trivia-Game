@@ -14,11 +14,11 @@
 <body>
   <div id="hello-page" class="container-fluid">
     <h2>Welcome, to the Flatiron Trivia Game!</h2>
-    <button type="button" class="btn btn-info">Start Trivia</button>
+    <button type="button" class="btn btn-info" id="start-button">Start Trivia</button>
 
-  </div>
-----------------------------------------------------------------------------------------------------------------
-    <div id="trivia-page" class="container-fluid">
+  </div> <!-- end of hello-page -->
+
+    <div id="trivia-page" class="container-fluid"> <!-- start of trivia-page -->
         <h3 id="trivia-score">Score:</h3>
         <br>
         <div>
@@ -32,10 +32,11 @@
                 <input type="radio" name="answers" value="other"> Third Choice
                 <br>
                 <input type="radio" name="answers" value="other"> Fourth Choice
-            </form>
+            </form><br>
+            <button type="button" class="btn btn-danger" id="exit-button">Exit Trivia</button>
         </div>
     </div> <!-- end of trivia-page -->
-------------------------------------------------------------------------------------------------------------------
+
     <div>
       <!-- Right Answer -->
       <div class="right_alert">
@@ -48,8 +49,8 @@
         <strong>Incorrect!</strong> You'll get it next time!
       </div>
     </div> <!-- Trivia Answer Alert -->
----------------------------------------------------------------------------------------------------------------
-    <div id="game-over-page" class="container-fluid">
+
+    <div id="game-over-page" class="container-fluid"> <!-- start of game-over-page -->
       <h2>Congratulations! Quiz has Ended!</h2><br>
       <h2>You scored: __ out of 10</h2><br>
       <form action="" id="gave-over-enter-name">
@@ -76,8 +77,10 @@
               <td>User Score</td>
             <tr>
         </table>
-      </div>
+      </div><br>
+      <button type="button" class="btn btn-success" id="again-button">Play Again</button>
     </div> <!-- end of game-over-page -->
+
 
 
     <script src="index.js"></script>
