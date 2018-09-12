@@ -12,14 +12,15 @@ function getAllAnwerChoices(){
 function getAllQuestions(){
   return fetch('http://localhost:3000/api/v1/questions')
   .then(resp=>resp.json())
-  .then(getQuestionInfo)
+  .then(renderQuestions)
 }
 
-function getQuestionInfo(questions){
-  questions.forEach(function(question){
-    console.log(question.question)
-  })
-}
+// function getQuestionInfo(questions){
+//   questions.forEach(function(question){
+//     console.log(question.question)
+//   })
+// }
+
 function getChoicesInfo(choices){
   choices.forEach(function(choice){
       console.log(choice.question_id) //this grabs question ID how to grab question
@@ -63,14 +64,8 @@ function displayTriviaPage() {
         }
     })
 
-    triviaPage.addEventListener('click', function(event) {
-        //debugger
-        if(event.target.id === "next-button") {
-            console.log('going to next question')
-            //add in the function that would go to the next question
-        }
-    })
-    
+
+
 }
 
 function displayGameOverPage() {
@@ -91,24 +86,51 @@ displayHelloPage()
 // displayGameOverPage()
 
 
-function getAllQuestions(){
-    return fetch('http://localhost:3000/api/v1/questions')
-    .then(resp=>resp.json())
-    .then(getQuestionInfo)
+// function getAllQuestions(){
+//     return fetch('http://localhost:3000/api/v1/questions')
+//     .then(resp=>resp.json())
+//     .then(getQuestionInfo)
+// }
+
+function randomQuestion(array){
+  let question = array[Math.floor( Math.random()*array.length)];
+  let questionIndex = array.indexOf(question)
+  array.splice(questionIndex, 1);
+  return question;
 }
 
 const currentQuestion = document.getElementById('trivia-question-title')
-function getQuestionInfo(questions) {
-  questions.forEach(function(q){
-    currentQuestion.innerHTML = `
-        <h3 id="trivia-question-title">Question: ${q.question}</h3>
-        <form action=""  id="trivia-answer-choices">
-            ${myAnswerTemplate = createAnswers(q)}
-        </form>
-    `
+function renderQuestions(questions) {
+  let q = randomQuestion(questions)
+  renderOneQuestion(q)
+  triviaPage.addEventListener('click', function(event) {
+      //debugger
+      if(event.target.id === "next-button") {
+          let q = randomQuestion(questions)
+          renderOneQuestion(q)
+          //add in the function that would go to the next question
+      }
   })
-
 }
+
+function renderOneQuestion(q){
+  currentQuestion.innerHTML = `
+      <h3 id="trivia-question-title">Question: ${q.question}</h3>
+      <form action=""  id="trivia-answer-choices">
+          ${createAnswers(q)}
+      </form>
+  `
+  document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+      if(event.target.value === "true") {
+        console.log('increase score')
+        console.log('alert for correct answer')
+      } else {
+        console.log('incorrect answer')
+        console.log('alert for incorrect')
+      }
+  })
+}
+
 function createAnswers(q) {
     const answers = q.choices
     let myAnswers = ``
@@ -121,6 +143,5 @@ function createAnswers(q) {
     }
     return myAnswers
 }
-  
-getAllQuestions()
 
+getAllQuestions()
