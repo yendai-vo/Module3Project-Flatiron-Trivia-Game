@@ -1,4 +1,3 @@
-
 function getAllGames(){
   return fetch('http://localhost:3000/api/v1/games')
     .then(resp=>resp.json())
@@ -58,28 +57,32 @@ function displayGameOverPage() {
   currentUserFinalScore.innerText = `You scored: ${userScore} out of 10 Questions`
 
   gameOverPage.addEventListener('submit', addUserNameAndScore)
-  function addUserNameAndScore(){
+  function addUserNameAndScore(event){
+    event.preventDefault();
+    let userName = event.target.parentElement.children[4].children[0].value
     console.log('hit submit button')
-    console.log(userScore)
-    //WORKING ON ADDING NAME & SCORE
-    // fetch(`http://localhost:3000/api/v1/games`, {
-    //   method: "Post",
-    //   headers: {
-    //     'Content-Type':'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     username: userName,
-    //     score: userScore
-    //   })
-    }
-  }
-    gameOverPage.addEventListener('click', function(event) {
-        //debugger
-        if(event.target.id === "again-button") {
-            displayHelloPage()
-        }
+
+    fetch(`http://localhost:3000/api/v1/games`, {
+      method: "Post",
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        username: userName,
+        score: userScore
+      })
     })
-}
+    .then(resp=> resp.json())
+}//currently will post Name and Score to api-games
+//working on adding to leaderboard
+
+  gameOverPage.addEventListener('click', function(event) {
+      //debugger
+      if(event.target.id === "again-button") {
+          displayHelloPage()
+      }
+  })
+}//END GAME OVER PAGE
 
 displayHelloPage()
 // displayTriviaPage()
@@ -117,12 +120,12 @@ function renderOneQuestion(q){
       if(event.target.value === "true") {
 
         userScore +=1
-        triviaScore.innerHTML = `Current Score: ${userScore}`    
+        triviaScore.innerHTML = `Current Score: ${userScore}`
        $("div#right_alert").show()
 
       } else {
         $("div#wrong_alert").show()
-   
+
       }
   })
 }
