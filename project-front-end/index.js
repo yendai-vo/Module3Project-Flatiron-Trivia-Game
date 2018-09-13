@@ -124,6 +124,7 @@ function renderQuestions(questions) {
 }
 
 let userScore = 0
+let questionCounter
 const triviaScore = document.getElementById('trivia-score')
 triviaScore.innerHTML = `Current Score: ${userScore}`
 function renderOneQuestion(q){
