@@ -133,15 +133,16 @@ function renderOneQuestion(q){
   `
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
-
         userScore +=1
         triviaScore.innerHTML = `Current Score: ${userScore}`
         $("div#right_alert").show()
-        setTimeout(hidealert, 3000)
+        setTimeout(hideAlert, 2000)
+
       } else {
         $("div#wrong_alert").show()
-        setTimeout(hidealert, 3000)
+        setTimeout(hideAlert, 2000)
       }
+      $("input[type=radio]").attr('disabled', true);
   }) 
   
 }
@@ -163,7 +164,7 @@ function hideAlert(){
   if ($("div#right_alert").show()){
     $("div#right_alert").hide()
   }
-  else if ($("div#wrong_alert").show()){
+  if ($("div#wrong_alert").show()){
     $("div#wrong_alert").hide()
   }
 }
