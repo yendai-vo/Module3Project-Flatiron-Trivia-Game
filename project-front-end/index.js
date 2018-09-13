@@ -138,12 +138,13 @@ function renderOneQuestion(q){
         userScore +=1
         triviaScore.innerHTML = `Current Score: ${userScore}`
         $("div#right_alert").show()
-        setTimeout(hideAlert, 2500)
+        setTimeout(hideAlert, 2000)
 
       } else {
         $("div#wrong_alert").show()
-        setTimeout(hideAlert, 2500)
+        setTimeout(hideAlert, 2000)
       }
+    $("input[type=radio]").attr('disabled', true);
   })
 }
 
