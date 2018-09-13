@@ -122,30 +122,38 @@ function renderQuestions(questions) {
 }
 
 let userScore = 0
-let questionCounter
+let questionCounter = 0
 const triviaScore = document.getElementById('trivia-score')
 triviaScore.innerHTML = `Current Score: ${userScore}`
 function renderOneQuestion(q){
-  currentQuestion.innerHTML = `
-      <h3 id="trivia-question-title">Question: ${q.question}</h3>
-      <form action=""  id="trivia-answer-choices">
-          ${createAnswers(q)}
-      </form>
-  `
-  document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
-      if(event.target.value === "true") {
-        userScore +=1
-        triviaScore.innerHTML = `Current Score: ${userScore}`
-        $("div#right_alert").show()
-        setTimeout(hideAlert, 2000)
+  // console.log(q)
+  // debugger
+  if (questionCounter < 10){
+    console.log(questionCounter)
+    // debugger
+    currentQuestion.innerHTML = `
+        <h3 id="trivia-question-title">Question: ${q.question}</h3>
+        <form action=""  id="trivia-answer-choices">
+            ${createAnswers(q)}
+        </form>
+    `
+    questionCounter++
+    document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+        if(event.target.value === "true") {
+          userScore +=1
+          triviaScore.innerHTML = `Current Score: ${userScore}`
+          $("div#right_alert").show()
+          setTimeout(hideAlert, 2000)
 
-      } else {
-        $("div#wrong_alert").show()
-        setTimeout(hideAlert, 2000)
-      }
-      $("input[type=radio]").attr('disabled', true);
-  }) 
-  
+        } else {
+          $("div#wrong_alert").show()
+          setTimeout(hideAlert, 2000)
+        }
+        $("input[type=radio]").attr('disabled', true);
+    })
+  } else if(questionCounter >= 10){
+    displayGameOverPage()
+  }
 }
 
 function restartGame(randomQuestion) {
