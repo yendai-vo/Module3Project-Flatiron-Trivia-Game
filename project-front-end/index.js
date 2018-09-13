@@ -88,18 +88,16 @@ function displayGameOverPage() {
 }//currently will post Name and Score to api-games
 //working on adding to leaderboard
 
-  gameOverPage.addEventListener('click', function(event) {
-      //debugger
-      if(event.target.id === "again-button") {
-          displayHelloPage()
-      }
-  })
+//   gameOverPage.addEventListener('click', function(event) {
+//       //debugger
+//       if(event.target.id === "again-button") {
+//         displayHelloPage()
+//         userScore = 0
+//       }
+//   })
 }//END GAME OVER PAGE
 
 displayHelloPage()
-// displayTriviaPage()
-// displayGameOverPage()
-
 
 
 function randomQuestion(array){
@@ -145,9 +143,23 @@ function renderOneQuestion(q){
         $("div#wrong_alert").show()
         setTimeout(hideAlert, 2000)
       }
-    $("input[type=radio]").attr('disabled', true);
+      $("input[type=radio]").attr('disabled', true);
+  }) 
+  
+}
+
+function restartGame(randomQuestion) {
+  gameOverPage.addEventListener('click', function(event) {
+    if(event.target.id === "again-button") {
+        displayHelloPage()
+        userScore = 0
+        triviaScore.innerHTML = `Current Score: ${userScore}`
+        getAllQuestions()
+    }
   })
 }
+
+restartGame()
 
 function hideAlert(){
   if ($("div#right_alert").show()){
