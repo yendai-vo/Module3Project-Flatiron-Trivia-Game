@@ -1,4 +1,3 @@
-
 function getAllGames(){
   return fetch('http://localhost:3000/api/v1/games')
     .then(resp=>resp.json())
@@ -66,24 +65,42 @@ function displayGameOverPage() {
     document.getElementById('trivia-page').style.display = "none";
     document.getElementById('game-over-page').style.display = "block";
 
-    gameOverPage.addEventListener('click', function(event) {
-        //debugger
-        if(event.target.id === "again-button") {
-            displayHelloPage()
-        }
+  const currentUserFinalScore = document.getElementById('current-user-final-score')
+  currentUserFinalScore.innerText = `You scored: ${userScore} out of 10 Questions`
+
+  gameOverPage.addEventListener('submit', addUserNameAndScore)
+  function addUserNameAndScore(event){
+    event.preventDefault();
+    let userName = event.target.parentElement.children[4].children[0].value
+    console.log('hit submit button')
+
+    fetch(`http://localhost:3000/api/v1/games`, {
+      method: "Post",
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        username: userName,
+        score: userScore
+      })
     })
-}
+    .then(resp=> resp.json())
+}//currently will post Name and Score to api-games
+//working on adding to leaderboard
+
+  gameOverPage.addEventListener('click', function(event) {
+      //debugger
+      if(event.target.id === "again-button") {
+          displayHelloPage()
+      }
+  })
+}//END GAME OVER PAGE
 
 displayHelloPage()
 // displayTriviaPage()
 // displayGameOverPage()
 
 
-// function getAllQuestions(){
-//     return fetch('http://localhost:3000/api/v1/questions')
-//     .then(resp=>resp.json())
-//     .then(getQuestionInfo)
-// }
 
 function randomQuestion(array){
   let question = array[Math.floor( Math.random()*array.length)];
@@ -106,6 +123,9 @@ function renderQuestions(questions) {
   })
 }
 
+let userScore = 0
+const triviaScore = document.getElementById('trivia-score')
+triviaScore.innerHTML = `Current Score: ${userScore}`
 function renderOneQuestion(q){
   currentQuestion.innerHTML = `
       <h3 id="trivia-question-title">Question: ${q.question}</h3>
@@ -115,15 +135,25 @@ function renderOneQuestion(q){
   `
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
+
+        userScore +=1
+        triviaScore.innerHTML = `Current Score: ${userScore}`
         $("div#right_alert").show()
-        console.log('increase score')
-        console.log('alert for correct answer')
+        setTimeout(hidealert, 3000)
       } else {
         $("div#wrong_alert").show()
-        console.log('incorrect answer')
-        console.log('alert for incorrect')
+        setTimeout(hidealert, 3000)
       }
   })
+}
+
+function hideAlert(){
+  if ($("div#right_alert").show()){
+    $("div#right_alert").hide()
+  }
+  else if ($("div#wrong_alert").show()){
+    $("div#wrong_alert").hide()
+  }
 }
 
 function createAnswers(q) {
