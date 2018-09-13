@@ -123,10 +123,10 @@ function renderQuestions(questions) {
 
 let userScore = 0
 const triviaScore = document.getElementById('trivia-score')
-triviaScore.innerHTML = `Current Score: ${userScore}`
+triviaScore.innerHTML = `Score: ${userScore}`
 function renderOneQuestion(q){
   currentQuestion.innerHTML = `
-      <h3 id="trivia-question-title">Question: ${q.question}</h3>
+      <h3 id="trivia-question-title">Question: ${q.question}</h3><hr>
       <form action=""  id="trivia-answer-choices">
           ${createAnswers(q)}
       </form>
@@ -134,7 +134,7 @@ function renderOneQuestion(q){
   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
       if(event.target.value === "true") {
         userScore +=1
-        triviaScore.innerHTML = `Current Score: ${userScore}`
+        triviaScore.innerHTML = `Score: ${userScore}`
         $("div#right_alert").show()
         setTimeout(hideAlert, 2000)
 
@@ -152,7 +152,7 @@ function restartGame(randomQuestion) {
     if(event.target.id === "again-button") {
         displayHelloPage()
         userScore = 0
-        triviaScore.innerHTML = `Current Score: ${userScore}`
+        triviaScore.innerHTML = `Score: ${userScore}`
         getAllQuestions()
     }
   })
