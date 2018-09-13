@@ -1,31 +1,8 @@
-function getAllGames(){
-  return fetch('http://localhost:3000/api/v1/games')
-    .then(resp=>resp.json())
-    .then(getGameInfo)
-}
-function getAllAnwerChoices(){
-  return fetch('http://localhost:3000/api/v1/choices')
-  .then(resp=>resp.json())
-  .then(getChoicesInfo)
-}
+
 function getAllQuestions(){
   return fetch('http://localhost:3000/api/v1/questions')
   .then(resp=>resp.json())
   .then(renderQuestions)
-}
-
-function getChoicesInfo(choices){
-  choices.forEach(function(choice){
-      console.log(choice.question_id) //this grabs question ID how to grab question
-      console.log(choice.answer_choice)
-    })
-}
-
-function getGameInfo(games){
-  games.forEach(function(game){
-    console.log(game.username)
-    console.log(game.score)
-  })
 }
 
 const helloPage = document.getElementById('hello-page')
@@ -70,10 +47,9 @@ function displayGameOverPage() {
 
   gameOverPage.addEventListener('submit', addUserNameAndScore)
   function addUserNameAndScore(event){
+
     event.preventDefault();
     let userName = event.target.parentElement.children[4].children[0].value
-    console.log('hit submit button')
-
     fetch(`http://localhost:3000/api/v1/games`, {
       method: "Post",
       headers: {
@@ -85,8 +61,47 @@ function displayGameOverPage() {
       })
     })
     .then(resp=> resp.json())
-}//currently will post Name and Score to api-games
-//working on adding to leaderboard
+    .then(getAllGames)
+    .then(disableSubmitButton)
+
+    function getAllGames(){
+      return fetch('http://localhost:3000/api/v1/games')
+        .then(resp=>resp.json())
+        .then(sortGames)
+    }
+    function sortGames(games){
+      games.sort(function(a, b){
+        if (b.score < a.score){
+          return -1;
+        }
+        if (b.score > a.score){
+          return 1;
+        }
+        return 0;
+      })
+      let topFiveGames= games.slice(0, 5)
+      topFiveGames.forEach(function (game){
+
+      const gameScoreTable = document.getElementById('game-score-table')
+      gameScoreTable.innerHTML += `
+        <tr data-id="${game.id}">
+          <td>${game.username}</td>
+          <td>${game.score}</td>
+        </tr>
+      `
+      })
+
+    }
+  function disableSubmitButton(){
+    let buttonElement = document.getElementById("form-submit-button")
+    buttonElement.disabled = true
+  }
+}
+  gameOverPage.addEventListener('click', function(event) {
+      if(event.target.id === "again-button") {
+          displayHelloPage()
+      }
+  })
 
 //   gameOverPage.addEventListener('click', function(event) {
 //       //debugger
@@ -95,6 +110,7 @@ function displayGameOverPage() {
 //         userScore = 0
 //       }
 //   })
+
 }//END GAME OVER PAGE
 
 displayHelloPage()
@@ -122,6 +138,7 @@ function renderQuestions(questions) {
 }
 
 let userScore = 0
+let questionCounter = 0
 const triviaScore = document.getElementById('trivia-score')
 triviaScore.innerHTML = `Score: ${userScore}`
 function renderOneQuestion(q){
@@ -138,13 +155,49 @@ function renderOneQuestion(q){
         $("div#right_alert").show()
         setTimeout(hideAlert, 2000)
 
-      } else {
-        $("div#wrong_alert").show()
-        setTimeout(hideAlert, 2000)
-      }
-      $("input[type=radio]").attr('disabled', true);
-  }) 
-  
+//   currentQuestion.innerHTML = `
+//       <h3 id="trivia-question-title">Question: ${q.question}</h3>
+//       <form action=""  id="trivia-answer-choices">
+//           ${createAnswers(q)}
+//       </form>
+//   `
+//   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+//     if(event.target.value === "true") {
+//       userScore +=1
+//       triviaScore.innerHTML = `Current Score: ${userScore}`
+//      $("div#right_alert").show()
+//     } else {
+//       $("div#wrong_alert").show()
+//     }
+//   })
+  // console.log(q)
+  // debugger
+  if (questionCounter < 10){
+    console.log(questionCounter)
+    // debugger
+    currentQuestion.innerHTML = `
+        <h3 id="trivia-question-title">Question: ${q.question}</h3>
+        <form action=""  id="trivia-answer-choices">
+            ${createAnswers(q)}
+        </form>
+    `
+    questionCounter++
+    document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+        if(event.target.value === "true") {
+          userScore +=1
+          triviaScore.innerHTML = `Current Score: ${userScore}`
+          $("div#right_alert").show()
+          setTimeout(hideAlert, 2000)
+
+        } else {
+          $("div#wrong_alert").show()
+          setTimeout(hideAlert, 2000)
+        }
+        $("input[type=radio]").attr('disabled', true);
+    })
+  } else if(questionCounter >= 10){
+    displayGameOverPage()
+  }
 }
 
 function restartGame(randomQuestion) {
@@ -181,5 +234,7 @@ function createAnswers(q) {
     }
     return myAnswers
 }
+
+
 
 getAllQuestions()
