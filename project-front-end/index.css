@@ -4,12 +4,12 @@ table, th, td {
     font-size: 30px;
 }
 
-body {
+body { 
   background-image: url("https://ak8.picdn.net/shutterstock/videos/2401118/thumb/1.jpg");
   /* no-repeat center center fixed; */
   background-size: cover;
   background-repeat: no-repeat;
-
+  
 }
 
 .container {
@@ -39,7 +39,9 @@ div.hidden
   background-color: rgb(210, 96,96);
   padding: 20px;
 }
+
 /*  end hidden  */
+
 #welcome-title {
   font-size: 5em;
   text-shadow: 4px 4px rgb(21, 21, 21);
@@ -71,3 +73,6 @@ div.hidden
 #next-button {
   margin-left: 70px;
 }
+
+
+

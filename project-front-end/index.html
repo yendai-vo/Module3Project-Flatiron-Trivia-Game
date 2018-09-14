@@ -17,6 +17,7 @@
     <h1 id="welcome-title">Welcome, to the Flatiron Trivia Game!</h1><br>
     <h3>Do you have the know-how for a perfect score?</h3><br>
     <button type="button" class="btn btn-info grow" id="start-button">Start Trivia</button>
+
   </div> <!-- end of hello-page -->
 
     <div id="trivia-page" class="row"> <!-- start of trivia-page -->
@@ -26,8 +27,8 @@
             <h3 id="trivia-question-title">Question:</h3>
             <hr>
 
-            <button type="button" class="btn btn-danger" id="exit-button">Exit Trivia</button>
-            <button type="button" class="btn btn-primary" id="next-button">Next Question</button>
+            <button type="button" class="btn btn-danger grow" id="exit-button">Exit Trivia</button>
+            <button type="button" class="btn btn-primary grow" id="next-button">Next Question</button>
         </div>
     </div> <!-- end of trivia-page -->
 
@@ -43,7 +44,9 @@
     </div> <!-- Trivia Answer Alert -->
 
     <div id="game-over-page" class="row"> <!-- start of game-over-page -->
-      <h1>Congratulations! Trivia Quiz has Ended!</h1><br>
+
+      <h1 id="congrats-title">Congratulations! Trivia Quiz has Ended!</h1><br>
+
       <h2 id='current-user-final-score'>You scored: __ out of 10</h2><br>
       <form action="" id="game-over-enter-name">
         <input type="text" placeholder="Your name">
@@ -58,7 +61,7 @@
           </tr>
         </table>
       </div><br>
-      <button type="button" class="btn btn-success" id="again-button">Play Again</button>
+      <button type="button" class="btn btn-success grow" id="again-button">Play Again</button>
     </div> <!-- end of game-over-page -->
 
 

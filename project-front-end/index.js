@@ -64,8 +64,20 @@ function renderQuestions(questions) {
 let userScore = 0
 let questionCounter = 0
 const triviaScore = document.getElementById('trivia-score')
-triviaScore.innerHTML = `Current Score: ${userScore}`
+triviaScore.innerHTML = `Score: ${userScore}`
 function renderOneQuestion(q){
+  currentQuestion.innerHTML = `
+      <h3 id="trivia-question-title">Question: ${q.question}</h3><hr>
+      <form action=""  id="trivia-answer-choices">
+          ${createAnswers(q)}
+      </form>
+  `
+  document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+      if(event.target.value === "true") {
+        userScore +=1
+        triviaScore.innerHTML = `Score: ${userScore}`
+        $("div#right_alert").show()
+        setTimeout(hideAlert, 2000)
 
   // currentQuestion.innerHTML = `
   //     <h3 id="trivia-question-title">Question: ${q.question}</h3>
@@ -111,6 +123,22 @@ function renderOneQuestion(q){
     displayGameOverPage()
   }
 }
+
+
+// function restartGame(randomQuestion) {
+//   gameOverPage.addEventListener('click', function(event) {
+//     if(event.target.id === "again-button") {
+//         displayHelloPage()
+//         userScore = 0
+//         triviaScore.innerHTML = `Score: ${userScore}`
+//         getAllQuestions()
+//     }
+//   })
+// }
+
+// restartGame()
+
+
 function hideAlert(){
   if ($("div#right_alert").show()){
     $("div#right_alert").hide()
