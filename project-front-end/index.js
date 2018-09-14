@@ -1,10 +1,4 @@
-
-function getAllQuestions(){
-  return fetch('http://localhost:3000/api/v1/questions')
-  .then(resp=>resp.json())
-  .then(renderQuestions)
-}
-
+//******BEGIN HELLOPAGE **********************
 const helloPage = document.getElementById('hello-page')
 const triviaPage = document.getElementById('trivia-page')
 const gameOverPage = document.getElementById('game-over-page')
@@ -13,14 +7,17 @@ function displayHelloPage() {
     document.getElementById('hello-page').style.display = "block";
     document.getElementById('trivia-page').style.display = "none";
     document.getElementById('game-over-page').style.display = "none";
-}
+}//displayHelloPage
 
 helloPage.addEventListener('click', function(event) {
-    //debugger
+  //debugger
     if(event.target.id === "start-button") {
         displayTriviaPage()
     }
-})
+})//helloPage addEventListener
+displayHelloPage()
+//******** END HELLO PAGE ***********
+//****BEGIN TRIVIA PAGE **************************
 
 function displayTriviaPage() {
     document.getElementById('hello-page').style.display = "none";
@@ -28,93 +25,20 @@ function displayTriviaPage() {
     document.getElementById('game-over-page').style.display = "none";
 
     triviaPage.addEventListener('click', function(event) {
-        //debugger
+      //debugger
         if(event.target.id === "exit-button") {
             displayGameOverPage()
         }
     })
 
 
-}
+}//triviaPage & trivia eventlistener
 
-function displayGameOverPage() {
-    document.getElementById('hello-page').style.display = "none";
-    document.getElementById('trivia-page').style.display = "none";
-    document.getElementById('game-over-page').style.display = "block";
-
-  const currentUserFinalScore = document.getElementById('current-user-final-score')
-  currentUserFinalScore.innerText = `You scored: ${userScore} out of 10 Questions`
-
-  gameOverPage.addEventListener('submit', addUserNameAndScore)
-  function addUserNameAndScore(event){
-
-    event.preventDefault();
-    let userName = event.target.parentElement.children[4].children[0].value
-    fetch(`http://localhost:3000/api/v1/games`, {
-      method: "Post",
-      headers: {
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-        username: userName,
-        score: userScore
-      })
-    })
-    .then(resp=> resp.json())
-    .then(getAllGames)
-    .then(disableSubmitButton)
-
-    function getAllGames(){
-      return fetch('http://localhost:3000/api/v1/games')
-        .then(resp=>resp.json())
-        .then(sortGames)
-    }
-    function sortGames(games){
-      games.sort(function(a, b){
-        if (b.score < a.score){
-          return -1;
-        }
-        if (b.score > a.score){
-          return 1;
-        }
-        return 0;
-      })
-      let topFiveGames= games.slice(0, 5)
-      topFiveGames.forEach(function (game){
-
-      const gameScoreTable = document.getElementById('game-score-table')
-      gameScoreTable.innerHTML += `
-        <tr data-id="${game.id}">
-          <td>${game.username}</td>
-          <td>${game.score}</td>
-        </tr>
-      `
-      })
-
-    }
-  function disableSubmitButton(){
-    let buttonElement = document.getElementById("form-submit-button")
-    buttonElement.disabled = true
-  }
-}
-  gameOverPage.addEventListener('click', function(event) {
-      if(event.target.id === "again-button") {
-          displayHelloPage()
-      }
-  })
-
-//   gameOverPage.addEventListener('click', function(event) {
-//       //debugger
-//       if(event.target.id === "again-button") {
-//         displayHelloPage()
-//         userScore = 0
-//       }
-//   })
-
-}//END GAME OVER PAGE
-
-displayHelloPage()
-
+function getAllQuestions(){
+  return fetch('http://localhost:3000/api/v1/questions')
+  .then(resp=>resp.json())
+  .then(renderQuestions)
+}//getAllQuestions & renderQuestions
 
 function randomQuestion(array){
   let question = array[Math.floor( Math.random()*array.length)];
@@ -155,21 +79,21 @@ function renderOneQuestion(q){
         $("div#right_alert").show()
         setTimeout(hideAlert, 2000)
 
-//   currentQuestion.innerHTML = `
-//       <h3 id="trivia-question-title">Question: ${q.question}</h3>
-//       <form action=""  id="trivia-answer-choices">
-//           ${createAnswers(q)}
-//       </form>
-//   `
-//   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
-//     if(event.target.value === "true") {
-//       userScore +=1
-//       triviaScore.innerHTML = `Current Score: ${userScore}`
-//      $("div#right_alert").show()
-//     } else {
-//       $("div#wrong_alert").show()
-//     }
-//   })
+  // currentQuestion.innerHTML = `
+  //     <h3 id="trivia-question-title">Question: ${q.question}</h3>
+  //     <form action=""  id="trivia-answer-choices">
+  //         ${createAnswers(q)}
+  //     </form>
+  // `
+  // document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+  //   if(event.target.value === "true") {
+  //     userScore +=1
+  //     triviaScore.innerHTML = `Current Score: ${userScore}`
+  //    $("div#right_alert").show()
+  //   } else {
+  //     $("div#wrong_alert").show()
+  //   }
+  // })
   // console.log(q)
   // debugger
   if (questionCounter < 10){
@@ -200,18 +124,20 @@ function renderOneQuestion(q){
   }
 }
 
-function restartGame(randomQuestion) {
-  gameOverPage.addEventListener('click', function(event) {
-    if(event.target.id === "again-button") {
-        displayHelloPage()
-        userScore = 0
-        triviaScore.innerHTML = `Score: ${userScore}`
-        getAllQuestions()
-    }
-  })
-}
 
-restartGame()
+// function restartGame(randomQuestion) {
+//   gameOverPage.addEventListener('click', function(event) {
+//     if(event.target.id === "again-button") {
+//         displayHelloPage()
+//         userScore = 0
+//         triviaScore.innerHTML = `Score: ${userScore}`
+//         getAllQuestions()
+//     }
+//   })
+// }
+
+// restartGame()
+
 
 function hideAlert(){
   if ($("div#right_alert").show()){
@@ -235,6 +161,95 @@ function createAnswers(q) {
     return myAnswers
 }
 
-
-
 getAllQuestions()
+
+
+// *************** GAME OVER PAGE
+function displayGameOverPage() {
+    document.getElementById('hello-page').style.display = "none";
+    document.getElementById('trivia-page').style.display = "none";
+    document.getElementById('game-over-page').style.display = "block";
+
+  const currentUserFinalScore = document.getElementById('current-user-final-score')
+  currentUserFinalScore.innerText = `You scored: ${userScore} out of 10 Questions`
+
+  gameOverPage.addEventListener('submit', addUserNameAndScore)
+  function addUserNameAndScore(event){
+
+    event.preventDefault();
+    let userName = event.target.parentElement.children[4].children[0].value
+    fetch(`http://localhost:3000/api/v1/games`, {
+      method: "Post",
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        username: userName,
+        score: userScore
+      })
+    })
+    .then(resp=> resp.json())
+    .then(getAllGames)
+    .then(disableSubmitButton)
+
+    function getAllGames(){
+      return fetch('http://localhost:3000/api/v1/games')
+        .then(resp=>resp.json())
+        .then(sortGames)
+    }//getAllGames
+    function sortGames(games){
+      games.sort(function(a, b){
+        if (b.score < a.score){
+          return -1;
+        }
+        if (b.score > a.score){
+          return 1;
+        }
+        return 0;
+      })//sort
+      let topFiveGames= games.slice(0, 5)
+      topFiveGames.forEach(function (game){
+
+      const gameScoreTable = document.getElementById('game-score-table')
+      gameScoreTable.innerHTML += `
+        <tr data-id="${game.id}">
+          <td>${game.username}</td>
+          <td>${game.score}</td>
+        </tr>
+      `
+    })//topFiveGames - function
+
+    }//sortGames
+    function disableSubmitButton(){
+      let buttonElement = document.getElementById("form-submit-button")
+      buttonElement.disabled = true
+    }
+  } //addUserNameAndScore
+  gameOverPage.addEventListener('click', function(event) {
+      if(event.target.id === "again-button") {
+          displayHelloPage()
+      }
+  })//gameOver - PlayAgaing Button
+
+  gameOverPage.addEventListener('click', function(event) {
+      //debugger
+      if(event.target.id === "again-button") {
+        displayHelloPage()
+        userScore = 0
+      }
+  })// start game over button
+
+}
+//RESTART GAME
+function restartGame(randomQuestion) {
+  gameOverPage.addEventListener('click', function(event) {
+    if(event.target.id === "again-button") {
+        displayHelloPage()
+        userScore = 0
+        triviaScore.innerHTML = `Current Score: ${userScore}`
+        getAllQuestions()
+    }
+  })
+}
+
+restartGame()

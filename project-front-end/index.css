@@ -30,15 +30,17 @@ div.hidden
 
 #right_alert{
   font-weight: bold;
-  background-color: green;
+  background-color: rgb(75,52,223);
   padding: 20px;
 }
 
 #wrong_alert{
   font-weight: bold;
-  background-color: red;
+  background-color: rgb(210, 96,96);
   padding: 20px;
 }
+
+/*  end hidden  */
 
 #welcome-title {
   font-size: 5em;
@@ -71,4 +73,6 @@ div.hidden
 #next-button {
   margin-left: 70px;
 }
+
+
 
