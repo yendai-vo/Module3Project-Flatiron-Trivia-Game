@@ -11,14 +11,15 @@
         crossorigin="anonymous">
 </head>
 
-<body>
-  <div id="hello-page" class="container-fluid">
-    <h2>Welcome, to the Flatiron Trivia Game!</h2>
-    <button type="button" class="btn btn-info" id="start-button">Start Trivia</button>
-
+<body class="container">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/FS_wiki.png" alt="Flatiron Logo" height="200">
+  <div id="hello-page" class="row">
+    <h1 id="welcome-title">Welcome, to the Flatiron Trivia Game!</h1><br>
+    <h3>Do you have the know-how for a perfect score?</h3><br>
+    <button type="button" class="btn btn-info grow" id="start-button">Start Trivia</button>
   </div> <!-- end of hello-page -->
 
-    <div id="trivia-page" class="container-fluid"> <!-- start of trivia-page -->
+    <div id="trivia-page" class="row"> <!-- start of trivia-page -->
         <h3 id="trivia-score">Score:</h3>
         <br>
         <div>
@@ -41,8 +42,8 @@
       </div>
     </div> <!-- Trivia Answer Alert -->
 
-    <div id="game-over-page" class="container-fluid"> <!-- start of game-over-page -->
-      <h2>Congratulations! Trivia Quiz has Ended!</h2><br>
+    <div id="game-over-page" class="row"> <!-- start of game-over-page -->
+      <h1>Congratulations! Trivia Quiz has Ended!</h1><br>
       <h2 id='current-user-final-score'>You scored: __ out of 10</h2><br>
       <form action="" id="game-over-enter-name">
         <input type="text" placeholder="Your name">
@@ -63,6 +64,7 @@
 
 
     <script src="index.js"></script>
+    <!-- <script src="chantals.js"></script -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
