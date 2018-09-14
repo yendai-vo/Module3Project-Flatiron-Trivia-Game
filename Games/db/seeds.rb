@@ -25,16 +25,21 @@ q7 = Question.create(question: 'True or False? Cookies are used to store data ab
 q8 = Question.create(question: ' In JS, what is the result of “80” + 71.2 ?')
 q9 = Question.create(question: 'What are valid ways to loop or iterate in JS?')
 q10 = Question.create(question: 'Given a service that returns information about cars, including the various drivers of each car, what might the URI look like for getting the second driver of the third car?')
+q11 = Question.create(question: 'What is SQL?')
+q12 = Question.create(question: 'Which is not a Database?')
+q13 = Question.create(question: 'ORM is:')
+q14 = Question.create(question: 'What is not one of the Rake tasks you would need to set up a database?')
+q15 = Question.create(question: 'True or False? In a Ruby class, the use of @@ is considered an instance variable.')
 
-Choice.create(question: q1, answer_choice: 'camelCase', is_correct: true)
-Choice.create(question: q1, answer_choice: 'snake_case', is_correct: false)
+Choice.create(question: q1, answer_choice: 'camelCase', is_correct: false)
+Choice.create(question: q1, answer_choice: 'snake_case', is_correct: true)
 Choice.create(question: q1, answer_choice: 'PascalCase', is_correct: false)
 Choice.create(question: q1, answer_choice: 'None of the Above', is_correct: false)
 
-Choice.create(question: q2, answer_choice: '<h1>{fetch}</h1>', is_correct: false)
-Choice.create(question: q2, answer_choice: '<h1>${fetch()}</h1>', is_correct: false)
-Choice.create(question: q2, answer_choice: '<h1>{fetch()}</h1>', is_correct: true)
-Choice.create(question: q2, answer_choice: '<h1>${fetch}</h1>', is_correct: false)
+Choice.create(question: q2, answer_choice: '<[h1]>{fetch}<[/h1]>', is_correct: false)
+Choice.create(question: q2, answer_choice: '<[h1]>${fetch()}<[/h1]>', is_correct: false)
+Choice.create(question: q2, answer_choice: '<[h1]>{fetch()}<[/h1]>', is_correct: true)
+Choice.create(question: q2, answer_choice: '<[h1]>${fetch}<[/h1]>', is_correct: false)
 
 Choice.create(question: q3, answer_choice: 'Class, True, Integer, Blah', is_correct: false)
 Choice.create(question: q3, answer_choice: 'Text, Integer, Real, Blob', is_correct: true)
@@ -73,6 +78,30 @@ Choice.create(question: q10, answer_choice: '/cars/1/drivers/2', is_correct: fal
 Choice.create(question: q10, answer_choice: '/cars3drivers2', is_correct: false)
 Choice.create(question: q10, answer_choice: '/cars/2/drivers/3', is_correct: false)
 Choice.create(question: q10, answer_choice: '/cars/3/drivers/2', is_correct: true)
+
+Choice.create(question: q11, answer_choice: 'Structured JQuery Language', is_correct: false)
+Choice.create(question: q11, answer_choice: 'Sequential Query Language', is_correct: false)
+Choice.create(question: q11, answer_choice: 'Structured Query Language', is_correct: true)
+Choice.create(question: q11, answer_choice: 'Structured Query Library', is_correct: false)
+
+Choice.create(question: q12, answer_choice: 'My SQL', is_correct: false)
+Choice.create(question: q12, answer_choice: 'RinoSql', is_correct: true)
+Choice.create(question: q12, answer_choice: 'SQLite ', is_correct: false)
+Choice.create(question: q12, answer_choice: 'PostgresSQL', is_correct: false)
+
+Choice.create(question: q13, answer_choice: 'Objection Relational  Mapping', is_correct: false)
+Choice.create(question: q13, answer_choice: 'Object Relational Mapping', is_correct: true)
+Choice.create(question: q13, answer_choice: 'Object Record Mapping', is_correct: false)
+Choice.create(question: q13, answer_choice: 'Object Relational Memory', is_correct: false)
+
+Choice.create(question: q14, answer_choice: 'Rake db:migrate', is_correct: false)
+Choice.create(question: q14, answer_choice: 'Rake db: drop', is_correct: true)
+Choice.create(question: q14, answer_choice: 'Rake db:seed', is_correct: false)
+Choice.create(question: q14, answer_choice: 'Rake db:create', is_correct: false)
+
+Choice.create(question: q15, answer_choice: 'True', is_correct: false)
+Choice.create(question: q15, answer_choice: 'False', is_correct: true)
+
 
 GameQuestion.create(game: g1, question: q1)
 GameQuestion.create(game: g1, question: q2)

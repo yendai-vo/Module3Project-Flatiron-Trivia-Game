@@ -30,8 +30,6 @@ function displayTriviaPage() {
             displayGameOverPage()
         }
     })
-
-
 }//triviaPage & trivia eventlistener
 
 function getAllQuestions(){
@@ -45,7 +43,7 @@ function randomQuestion(array){
   let questionIndex = array.indexOf(question)
   array.splice(questionIndex, 1);
   return question;
-}
+}//end randomQuestion
 
 const currentQuestion = document.getElementById('trivia-question-title')
 function renderQuestions(questions) {
@@ -58,46 +56,18 @@ function renderQuestions(questions) {
           renderOneQuestion(q)
           //add in the function that would go to the next question
       }
-  })
-}
+  })//eventListener
+}//end renderQuestions
 
 let userScore = 0
 let questionCounter = 0
 const triviaScore = document.getElementById('trivia-score')
 triviaScore.innerHTML = `Score: ${userScore}`
+////begin new
 function renderOneQuestion(q){
-  currentQuestion.innerHTML = `
-      <h3 id="trivia-question-title">Question: ${q.question}</h3><hr>
-      <form action=""  id="trivia-answer-choices">
-          ${createAnswers(q)}
-      </form>
-  `
-  document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
-      if(event.target.value === "true") {
-        userScore +=1
-        triviaScore.innerHTML = `Score: ${userScore}`
-        $("div#right_alert").show()
-        setTimeout(hideAlert, 2000)
-
-  // currentQuestion.innerHTML = `
-  //     <h3 id="trivia-question-title">Question: ${q.question}</h3>
-  //     <form action=""  id="trivia-answer-choices">
-  //         ${createAnswers(q)}
-  //     </form>
-  // `
-  // document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
-  //   if(event.target.value === "true") {
-  //     userScore +=1
-  //     triviaScore.innerHTML = `Current Score: ${userScore}`
-  //    $("div#right_alert").show()
-  //   } else {
-  //     $("div#wrong_alert").show()
-  //   }
-  // })
   // console.log(q)
   // debugger
   if (questionCounter < 10){
-    console.log(questionCounter)
     // debugger
     currentQuestion.innerHTML = `
         <h3 id="trivia-question-title">Question: ${q.question}</h3>
@@ -119,11 +89,73 @@ function renderOneQuestion(q){
         }
         $("input[type=radio]").attr('disabled', true);
     })
-  } else if(questionCounter >= 10){
+  } else if(questionCounter === 10){
+
     displayGameOverPage()
   }
 }
 
+///end new
+// function renderOneQuestion(q){
+//   currentQuestion.innerHTML = `
+//       <h3 id="trivia-question-title">Question: ${q.question}</h3><hr>
+//       <form action=""  id="trivia-answer-choices">
+//           ${createAnswers(q)}
+//       </form>
+//   `
+//   document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+//     if(event.target.value === "true") {
+//       userScore +=1
+//       triviaScore.innerHTML = `Score: ${userScore}`
+//       $("div#right_alert").show()
+//       setTimeout(hideAlert, 2000)
+//
+// currentQuestion.innerHTML = `
+//     <h3 id="trivia-question-title">Question: ${q.question}</h3>
+//     <form action=""  id="trivia-answer-choices">
+//         ${createAnswers(q)}
+//     </form>
+// `
+// document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+//   if(event.target.value === "true") {
+//     userScore +=1
+//     triviaScore.innerHTML = `Current Score: ${userScore}`
+//    $("div#right_alert").show()
+//   } else {
+//     $("div#wrong_alert").show()
+//   }
+// })
+// // console.log(q)
+// // debugger
+//         if (questionCounter < 10){
+//           console.log(questionCounter)
+//           // debugger
+//           currentQuestion.innerHTML = `
+//               <h3 id="trivia-question-title">Question: ${q.question}</h3>
+//               <form action=""  id="trivia-answer-choices">
+//                   ${createAnswers(q)}
+//               </form>
+//           `
+//         questionCounter++
+//         document.querySelector('#trivia-answer-choices').addEventListener('change', function(event) {
+//             if(event.target.value === "true") {
+//               userScore +=1
+//               triviaScore.innerHTML = `Current Score: ${userScore}`
+//               $("div#right_alert").show()
+//               setTimeout(hideAlert, 2000)
+//
+//             } else {
+//               $("div#wrong_alert").show()
+//               setTimeout(hideAlert, 2000)
+//             }
+//             $("input[type=radio]").attr('disabled', true);
+//         })//eventlistner
+//       } else if(questionCounter >= 10){
+//         displayGameOverPage()
+//       }
+//      }// end if1
+//   })//end eventListner trivia answer questions
+// }//end renderOneQuesiton
 
 // function restartGame(randomQuestion) {
 //   gameOverPage.addEventListener('click', function(event) {
@@ -138,7 +170,6 @@ function renderOneQuestion(q){
 
 // restartGame()
 
-
 function hideAlert(){
   if ($("div#right_alert").show()){
     $("div#right_alert").hide()
@@ -146,7 +177,7 @@ function hideAlert(){
   if ($("div#wrong_alert").show()){
     $("div#wrong_alert").hide()
   }
-}
+}//end HideAlert
 
 function createAnswers(q) {
     const answers = q.choices
@@ -159,12 +190,24 @@ function createAnswers(q) {
         myAnswers += oneAnswer
     }
     return myAnswers
-}
+}//end createAnswers
 
 getAllQuestions()
-
+///************end trivia game page ***********
 
 // *************** GAME OVER PAGE
+gameOverPage.addEventListener('click', function(event) {
+
+  if(event.target.id === "again-button") {
+
+    displayHelloPage()
+    userScore = 0
+    questionCounter = 0
+    triviaScore.innerHTML = `Current Score: ${userScore}`
+    getAllQuestions()
+    //need to reset submit button for submit name - here?***
+    }
+  })// start game over button
 function displayGameOverPage() {
     document.getElementById('hello-page').style.display = "none";
     document.getElementById('trivia-page').style.display = "none";
@@ -175,7 +218,6 @@ function displayGameOverPage() {
 
   gameOverPage.addEventListener('submit', addUserNameAndScore)
   function addUserNameAndScore(event){
-
     event.preventDefault();
     let userName = event.target.parentElement.children[4].children[0].value
     fetch(`http://localhost:3000/api/v1/games`, {
@@ -220,36 +262,53 @@ function displayGameOverPage() {
     })//topFiveGames - function
 
     }//sortGames
+
     function disableSubmitButton(){
       let buttonElement = document.getElementById("form-submit-button")
       buttonElement.disabled = true
     }
+    // gameOverPage.addEventListener('click', function(event) {
+    //     debugger
+    //     if(event.target.id === "again-button") {
+    //       displayHelloPage()
+    //       userScore = 0
+    //       triviaScore.innerHTML = `Current Score: ${userScore}`
+    //       getAllQuestions()
+    //       }
+    //   })// start game over button
   } //addUserNameAndScore
-  gameOverPage.addEventListener('click', function(event) {
-      if(event.target.id === "again-button") {
-          displayHelloPage()
-      }
-  })//gameOver - PlayAgaing Button
 
-  gameOverPage.addEventListener('click', function(event) {
-      //debugger
-      if(event.target.id === "again-button") {
-        displayHelloPage()
-        userScore = 0
-      }
-  })// start game over button
+  //DOUPLICATE RESTART GAMES??
+  // gameOverPage.addEventListener('click', function(event) {
+  //     if(event.target.id === "again-button") {
+  //         displayHelloPage()
+  //     }
+  // })//gameOver - PlayAgaing Button
 
-}
+  // gameOverPage.addEventListener('click', function(event) {
+  //     //debugger
+  //     if(event.target.id === "again-button") {
+  //       displayHelloPage()
+  //       userScore = 0
+  //         triviaScore.innerHTML = `Current Score: ${userScore}`
+  //         getAllQuestions()
+  //       }
+  //   })// start game over button
+
+}//end DisplayOverPage
+
+//DOUPLICATE RESTART GAMES ABOVE??
 //RESTART GAME
-function restartGame(randomQuestion) {
-  gameOverPage.addEventListener('click', function(event) {
-    if(event.target.id === "again-button") {
-        displayHelloPage()
-        userScore = 0
-        triviaScore.innerHTML = `Current Score: ${userScore}`
-        getAllQuestions()
-    }
-  })
-}
-
-restartGame()
+// function restartGame(randomQuestion) {
+//   gameOverPage.addEventListener('click', function(event) {
+//
+//     if(event.target.id === "again-button") {
+//         displayHelloPage()
+//         userScore = 0
+//         triviaScore.innerHTML = `Current Score: ${userScore}`
+//         getAllQuestions()
+//     }
+//   })
+// } //end restartGame(randomQuestions)
+//
+// restartGame()
