@@ -204,8 +204,11 @@ gameOverPage.addEventListener('click', function(event) {
     userScore = 0
     questionCounter = 0
     triviaScore.innerHTML = `Current Score: ${userScore}`
+    let buttonElement = document.getElementById("form-submit-button")
+    buttonElement.disabled = false
+    //make a toggle function for turn true/false
     getAllQuestions()
-    //need to reset submit button for submit name - here?***
+
     }
   })// start game over button
 function displayGameOverPage() {
