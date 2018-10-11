@@ -1,0 +1,147 @@
+***OBJECTIVES:***
+
+User: ­> Go to the site:
+○ See current high score
+○ Enter name
+○ Click Start Game Button
+Start Game:
+“Username’s Score” at the top it will start at zero Asks question ­ multiple choice with 1 correct answer User answers
+○ Show if your answer was right or wrong ○ Click next question
+○ Go through 10 questions
+○ Show score complete score at the end. ○ Click new game or exit game
+New game refreshes page and updates new questions Exit game takes you back to home page
+BACKEND: 
+
+**GAME**
+Has many game-questions
+Has many questions through game-questions
+id
+Score
+Username
+
+**Game_Questions**
+Belongs to game 
+Belongs to question
+id
+Question_id
+Game_id
+
+**Questions**
+Has many game-questions
+Has many games through game-questions
+Has many Answer-choices
+id
+Question
+
+**Choice (aka Answer-Choices)**
+Belongs to question
+id
+Question_id
+Answer_choice
+is_correct(yes/no)
+
+FRONTEND:
+Event Listeners
+Clicks 
+Start game
+Select answer
+At end of questions - end game or new game
+Form submit (fill in name)
+Fetch and post
+
+--- Question ----
+1. Question: Variables in ruby are written in:
+   1. Camel case -true
+   2. Snake case
+   3. Pascal case
+   4. None of the above.
+2. Question: To interpolate in Ruby
+   1. ${word}
+   2. <%{word}%>
+   3. #{word} -true
+   4. None of the above
+3. Question: Which of the following are SQL data type categories?
+   1. Class, True, Integer, Blah
+   2. Text, Integer, Real, Blob
+   3. Hypertext, Number, Blob, Strings
+   4. None of the above
+4. Question: Which command can you run to see all of your rake tasks?
+   1. rake -t -true
+   2. rake -tacks
+   3. rake t
+   4. None of the above
+5. Question: Which terminal command tells you which directory you are currently in?
+   1. Ls
+    2. Pwd -true
+   3. Mkdir
+   4. None of the above
+6. Question: What does MVC
+   1. Model, View, Control
+   2. Model, View, Contact
+   3. Model, View Template
+   4. None of the above - true
+7. Question: True or False? Cookies are used to store data about a user.
+   1. True
+   2. False
+8. Question: In JS, what is the result of “80” + 71.2 ?
+   1. 151.2
+   2. “8071.2” -  true
+   3. 151
+   4. None of the above
+
+9. Question: What are valid ways to loop or iterate in JS?
+   1. for…of
+   2. for…in
+   3. for (let i = 0; i < myArray.length; i++){}
+   4. All of the above - true
+
+10. Question: Given a service that returns information about cars, including the various drivers of each car, what might the URI look like for getting the second driver of the third car?
+   1. /cars/1/drivers/2
+    2. /cars3drivers2
+   3. /cars/2/drivers/3
+   4. /cars/3/drivers/2 - true
+MOD 1: 
+11. Question: What is SQL?
+False: Structured JQuery Language
+False: Sequential Query Language
+True: Structured Query Language 
+False:  Structured Query Library
+12. Question: Which is not a Database?
+My SQL
+RinoSql True
+SQLite 
+PostgresSQL
+13. Question: ORM is:
+Objection Relational  Mapping
+Object Relational Mapping -True
+Object Record Mapping
+Object Relational Memory
+14. Question:  What is not one of the Rake tasks you would need to set up a database?
+Rake db:migrate
+Rake db: drop -true
+Rake db:seed
+Rake db:create
+True or False? In a Ruby class, the use of @@ is considered an instance variable.
+True  - false
+False  -true
+_______________________________________________________
+Hello-Page:
+Welcome to Game
+Start Game Button -- > user selects and takes to Game
+Trivia-Page:
+Current Player Score: __ increments by 1
+Question come up one at a time with Answer choices. 
+User Selects answer and a hidden pop up of if correct or if wrong comes up.
+If correct adds one to player score
+At end of game (10 questions) - goes to end of game page
+Add exit Trivia button takes to end of game
+End-of-Game:
+Trivia game is over
+You scored x of 10 
+Enter name 
+Add name and score to leaderboard
+Leaderboard highest on top
+__________________________________________________________
+
+
+
